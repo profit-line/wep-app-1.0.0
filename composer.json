@@ -1,0 +1,13 @@
+{
+  "require": {
+    "firebase/php-jwt": "^6.10",
+    "paragonie/sodium_compat": "^1.20",
+    "phpmailer/phpmailer": "^6.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Libraries\\": "libraries/"
+    }
+  }
+}
