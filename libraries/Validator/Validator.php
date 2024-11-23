@@ -20,7 +20,7 @@ class Validator
 
     public function Validate($array)
     {
-
+        
         foreach ($array as $field => $rules) {
 
             foreach ($rules as $rule) {
@@ -32,10 +32,10 @@ class Validator
                     $fieldArray = explode(':', $field);
                     $arrayName = $fieldArray[0];
                     $key = $fieldArray[1];
-                    if (isset($this->request->{$arrayName}[$key]) && !empty($this->request->{$arrayName}[$key])) {
+                    
+                 if (isset($this->request->{$arrayName}[$key]) && trim($this->request->{$arrayName}[$key]) != '') {
 
                     if (strpos($rule, ':')) {
-                       
                         $rule = explode(':', $rule);
                         $ruleName = $rule[0];
                         $ruleValue = $rule[1];
@@ -45,16 +45,17 @@ class Validator
                             break;
                         }
                     } else {
+                        
                         if ($error = $this->{$rule}($this->request->{$arrayName}[$key])) {
                             $this->errors[array_keys($this->request->$arrayName , $this->request->{$arrayName}[$key])[0]] = $error;
                             break;
                         }
-                    } 
+                 } 
                 }
                 } else {
 
                     if (strpos($rule, ':')) {
-
+                        
                         $rule = explode(':', $rule);
                         $ruleName = $rule[0];
                         $ruleValue = $rule[1];
@@ -64,7 +65,6 @@ class Validator
                             break;
                         }
                     } else {
-
                         if ($error = $this->{$rule}($field)) {
                             $this->errors[$field] = $error;
                             break;
@@ -73,6 +73,7 @@ class Validator
                 }
             }
         }
+
         return $this;
     }
 
@@ -88,18 +89,11 @@ class Validator
 
     private function required($field)
     {
-
-        if ($this->request->{$field} !== null) {
-          
-            return false;
-        
-        } elseif (is_null($field) || empty($field) || $field == '') {
+        if(is_null($this->request->{$field}) || $this->request->{$field} == '') {
             return true;
         } else {
             return false;
-            
         }
-        return false;
     }
 
     // If the lenth desired string is less than the value, it will set the error field to 1
