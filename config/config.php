@@ -8,7 +8,7 @@
     // App root
     define('APPROOT' , dirname(__DIR__));
     // URL root
-    define('URLROOT' , 'http://localhost/estate/');
+    define('URLROOT' , 'http://localhost/web-app/');
     // Site Name
     define('SITENAME' , 'web app');
     //secret key for jwt token
