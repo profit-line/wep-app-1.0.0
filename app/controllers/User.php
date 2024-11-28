@@ -5,7 +5,6 @@ use Libraries\Controller\Controller;
 class User extends Controller
 {
 
-
     public function __construct()
     {
 
@@ -15,4 +14,5 @@ class User extends Controller
     {
 
     }
+    
 }
