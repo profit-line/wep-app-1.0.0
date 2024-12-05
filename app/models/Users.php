@@ -1,12 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-namespace App\models;
-
-
-class Users {
-
-=======
 namespace App\models;
 
 use Libraries\Database\Database;
@@ -108,7 +100,6 @@ class Users{
             return false;
         }
     }
->>>>>>> e10866b35a64459b4039a12d96dcfb1c420ae115
 
 
 }
