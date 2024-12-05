@@ -9,13 +9,10 @@ use Libraries\Auth\Auth;
 class User extends Controller
 {
 
-<<<<<<< HEAD
-=======
     private $req;
     private $validator;
     private $userModel;
 
->>>>>>> e10866b35a64459b4039a12d96dcfb1c420ae115
     public function __construct()
     {
         $this->req = new Request();
@@ -95,9 +92,6 @@ class User extends Controller
     
     }
     
-<<<<<<< HEAD
-}
-=======
     
     public function login() {
 
@@ -174,4 +168,3 @@ class User extends Controller
     }
 
 
->>>>>>> e10866b35a64459b4039a12d96dcfb1c420ae115
