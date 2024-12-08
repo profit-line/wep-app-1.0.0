@@ -1,14 +1,20 @@
 <?php
+
 namespace App\models;
+
 use Libraries\Database\Database;
 
-class Pages{
+class Admin{
 
     private $db;
     public function __construct(){
 
         $this->db = new Database();
 
-    } 
+    }
 
+
+    
+
+    
 }
