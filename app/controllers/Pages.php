@@ -8,7 +8,6 @@ use Libraries\Controller\Controller;
         {
         }
 
-        public function index(){
-
+        public function index(){            
         }
     }
