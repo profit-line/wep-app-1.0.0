@@ -23,7 +23,7 @@ class Auth {
         if(Session::set('user' , $user)){
             $status = true;
 
-            if(isset($user['cookie_token']) && !is_null($user['cookie_token']) && $user['cookie_token'] != "" && $user['cookie_token'] != 0){
+            if(!isEmpty($user['cookie_token']) && !is_null($user['cookie_token']) && $user['cookie_token'] != 0){
    
                 $res = self::setJwt($user);
                 if(!is_null($res)){
