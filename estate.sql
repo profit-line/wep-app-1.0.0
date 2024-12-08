@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2024 at 10:32 AM
+-- Generation Time: Dec 08, 2024 at 08:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -52,7 +52,7 @@ CREATE TABLE `clients` (
   `profile_image` varchar(255) NOT NULL,
   `phone_number` bigint(20) NOT NULL,
   `house_phone_number` bigint(20) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `city` varchar(155) NOT NULL,
   `agency_Id` bigint(20) NOT NULL,
   `status` tinyint(5) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -109,10 +109,11 @@ CREATE TABLE `notifictions` (
 
 CREATE TABLE `real_estate_consultant` (
   `id` bigint(20) NOT NULL,
-  `consultant_id` bigint(20) NOT NULL,
-  `agency_image` varchar(255) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `agency_image` varchar(255) DEFAULT NULL,
   `address` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
+  `office_phone_number` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -217,15 +218,17 @@ CREATE TABLE `users` (
   `family_name` varchar(255) NOT NULL,
   `last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `profile_image` varchar(255) DEFAULT NULL,
-  `phone_number` bigint(20) NOT NULL,
-  `mobile_phone_number` bigint(20) NOT NULL,
-  `house_phone_number` bigint(20) DEFAULT NULL,
+  `mobile_phone_number` varchar(20) NOT NULL,
+  `house_phone_number` varchar(20) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `status` tinyint(5) NOT NULL,
-  `role` tinyint(5) NOT NULL,
+  `city` varchar(155) NOT NULL,
+  `status` tinyint(5) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 0,
+  `role` enum('admin','ticket_admin','user') DEFAULT 'user',
+  `last_online` bigint(35) DEFAULT NULL,
   `verify_token` varchar(255) DEFAULT NULL,
-  `verify_token_expire` datetime DEFAULT NULL,
+  `verify_token_expire` bigint(35) DEFAULT NULL,
   `cookie_token` varchar(255) DEFAULT NULL,
   `csrf_token` varchar(255) DEFAULT NULL,
   `isOnline` tinyint(1) NOT NULL,
@@ -234,6 +237,13 @@ CREATE TABLE `users` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `user_name`, `family_name`, `last_name`, `profile_image`, `mobile_phone_number`, `house_phone_number`, `email`, `password`, `city`, `status`, `is_active`, `role`, `last_online`, `verify_token`, `verify_token_expire`, `cookie_token`, `csrf_token`, `isOnline`, `ip_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(14, 'pouria12', 'pakdaman', 'pouria', '2024120610115025.png', '09162887623', '54254758', 'pouria0015@gmail.com', '$2y$10$wUdPLDbWqOdee.8DUb.fzukkd/hQKINFAcWj4pQejB0YTPTEd4esu', 'Kayseri', 0, 0, 'user', NULL, '748900d1b6365bd9d6e4102e5ffa0d2fea08a56bd04dcce7290dc1d7434dcf66', 1733523110, NULL, NULL, 0, '', '2024-12-06 13:11:50', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -373,7 +383,7 @@ ALTER TABLE `tickets_reply`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
