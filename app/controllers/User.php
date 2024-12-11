@@ -46,13 +46,13 @@ class User extends Controller
 
     public function register()
     {
-
+    
 
         $data['errors'] = [];
         $data['requests'] = [];
 
         if ($this->req->isPostMethod()) {
-
+            
             $validate = $this->validator->Validate([
                 'user_name' => ['required', 'minStr:4', 'maxStr:45'],
                 'family_name' => ['required', 'minStr:3', 'maxStr:35'],
