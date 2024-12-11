@@ -21,7 +21,7 @@ class Users{
 
         $this->db->bind(':user_name', $UserName);
 
-        $this->db->fetch();
+        $row = $this->db->fetch();
 
         if ($this->db->rowCount() > 0) {
             return true;
@@ -64,6 +64,12 @@ class Users{
         }else{
             return false;
         }
+    }
+
+    public function editUserDataById($id , $data){
+
+        return $this->db->updateById('users' , $id , $data);
+
     }
 
 
@@ -137,11 +143,7 @@ class Users{
 
     }
 
-    public function getUsersData(){
-        
-        $sql = '';
 
-    }
 
     public function activeUserById($id , $role){
 
@@ -160,6 +162,16 @@ class Users{
         }
 
     }
+
+    public function getUsersData() {
+        
+        return $this->db->getAllData(
+            'users',
+            ['id' , 'user_name' , 'family_name' , 'last_name' , 'mobile_phone_number' , 'house_phone_number' , 'email' , 'city' , 'role']
+        );
+
+    }       
+
 
     public function creatCookieToken($id){
         $sql = "UPDATE `users` SET `users`.`cookie_token` = :token WHERE `users`.`id` = :id;";

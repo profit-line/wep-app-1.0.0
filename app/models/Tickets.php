@@ -4,7 +4,7 @@ namespace App\models;
 
 use Libraries\Database\Database;
 
-class Admin{
+class Tickets{
 
     private $db;
     public function __construct(){
@@ -13,5 +13,6 @@ class Admin{
 
     }
 
-    
+
+
 }
