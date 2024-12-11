@@ -87,4 +87,64 @@ class Database
         }
         return false;
     }
+
+
+    public function getAllData($tableName , $fields = ['*'] , $filters = [], $page = 1, $perPage = 10) {
+
+        $newFields = [];
+        foreach($fields as $field){
+            array_push($newFields , "`$tableName`.`$field`");
+        }
+        $stringFields = implode(',' , $newFields);
+        $sql = "SELECT $stringFields FROM `$tableName`";
+    
+    
+        $whereClause = [];
+        $bindParams = [];
+        if (count($filters) > 0) {
+            foreach ($filters as $field => $value) {
+                $whereClause[] = "`$tableName`.`$field` = :$field";
+                $bindParams[":$field"] = $value;
+            }
+            $sql .= " WHERE " . implode(" AND ", $whereClause);
+        }
+    
+
+        $offset = ($page - 1) * $perPage;
+        $sql .= " LIMIT $perPage OFFSET $offset";
+        
+        $this->query($sql);
+        $this->bindArray($bindParams);
+        $rows = $this->fetchAll();
+    
+        if ($this->rowCount() > 0) {
+            return $rows;
+        } else {
+            return false;
+        }
+    }
+
+
+    public function updateById($tableName, $id , $data){
+
+        $sql = "UPDATE `$tableName` SET ";
+        $params = [];
+        foreach ($data as $key => $value) {
+            $sql .= "`$key` = :$key, ";
+            $params[":$key"] = $value;
+        }
+        $sql = rtrim($sql, ', ');
+        $sql .= " WHERE `$tableName`.`id` = :id AND `$tableName`.`deleted_at` IS NULL;";
+        $params[':id'] = $id;
+
+        $this->query($sql);
+        $this->bindArray($params);
+        if($this->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }  
+
 }
