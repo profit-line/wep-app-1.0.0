@@ -103,13 +103,13 @@ class Users{
 
     public function getUserDataById($id){
 
-        $sql = 'SELECT `users`.`id` , `users`.`user_name` , `users`.`family_name` , `users`.`last_name` , `users`.`profile_image` , `users`.`mobile_phone_number` , `users`.`house_phone_number` , `users`.`email` , `users`.`password` , `users`.`city` , `users`.`city` , `users`.`role` , `users`.`cookie_token` , `users`.`created_at` , `users`.`updated_at` FROM `users` WHERE `users`.`id` = :id;';
+        $sql = 'SELECT `users`.`id` , `users`.`user_name` , `users`.`family_name` , `users`.`last_name` , `users`.`profile_image` , `users`.`mobile_phone_number` , `users`.`house_phone_number` , `users`.`email` , `users`.`password` , `users`.`city` , `users`.`city` , `users`.`role` FROM `users` WHERE `users`.`id` = :id;';
         $this->db->query($sql);
 
         $this->db->bind(':id' , $id);
-        $rows = $this->db->fetchAll();
+        $row = $this->db->fetch();
         if($this->db->rowCount() > 0){
-            return $rows;
+            return $row;
         }else{
             return false;
         }
