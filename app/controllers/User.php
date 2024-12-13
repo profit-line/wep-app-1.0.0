@@ -97,7 +97,7 @@ class User extends Controller
                 if (isset($resulte['status']) && $resulte['status'] == true) {
                     
                     if(!fileUpload($userData['profile_image_path'] , APPROOT . '/public/img/profiles/' . $userData['profile_image_name'])){
-                        dd('sss' , 1);
+                        
                         flash('ErrorAddImageProfile', "  ", "alert alert-danger");
                     }
                 
