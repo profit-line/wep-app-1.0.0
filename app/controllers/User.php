@@ -208,6 +208,86 @@ class User extends Controller
 
         }
 
-    }
+        public function editUser($id)
+        {
+            $data['errors'] = [];
+            $data['requests'] = [];
+    
+            if ($this->req->isPostMethod()) {
+                $validate = $this->validator->Validate([
+                    'user_name' => ['required', 'minStr:4', 'maxStr:45'],
+                    'family_name' => ['required', 'minStr:3', 'maxStr:35'],
+                    'last_name' => ['required', 'minStr:3', 'maxStr:35'],
+                    'mobile_phone_number' => ['isNumber', 'minNumberLenth:9', 'maxNumberLenth:13'],
+                    'house_phone_number' => ['isNumber'],
+                    'email' => ['email', 'required', 'minStr:10', 'maxStr:85'],
+                    'city' => ['required', 'minStr:3', 'maxStr:45'],
+                    'role' => ['required']
+                ]);
 
+                $cityResulte = checkList($this->citiesTurkiye , $this->req->city);
+                $validate->setError('city' , $cityResulte);
+    
+                if ($validate->hasError()) {
+                    $data = [
+                        'errors' => $validate->getErrors(),
+                        'requests' => $this->req->getAttribute()
+                    ];
+                } else {
+                    $userData = [
+                        'user_name' => $this->req->user_name,
+                        'family_name' => $this->req->family_name,
+                        'last_name' => $this->req->last_name,
+                        'mobile_phone_number' => !isEmpty($this->req->mobile_phone_number) ? $this->req->mobile_phone_number : '',
+                        'house_phone_number' => !isEmpty($this->req->house_phone_number) ? $this->req->house_phone_number : '',
+                        'email' => $this->req->email,
+                        'city' => $this->req->city,
+                        'role' => $this->req->role,
+                        'updated_at' => date('Y-m-d H:i:s') 
+                    ];
+    
+                    $result = $this->userModel->editUserDataById($id, $userData);
+    
+                    if ($result) {
+                        flash('UserUpdated', 'اطلاعات کاربر با موفقیت ویرایش شد', 'alert alert-success');
+                        redirect('users/index');
+                    } else {
+                        flash('UserUpdateError', 'خطایی در ویرایش اطلاعات کاربر رخ داد', 'alert alert-danger');
+                    }
+                }
+            }
+    
+            $user = $this->userModel->getUserDataById($id);
+    
+            if ($user) {
+                $data['user'] = $user;
+                $this->view('users/edit', $data);
+            } else {
+                flash('UserNotFound', 'کاربر مورد نظر پیدا نشد', 'alert alert-danger');
+                redirect('users/index');
+            }
+        }
+    
+        public function deleteUser($id)
+        {
+            $user = $this->userModel->getUserDataById($id);
+    
+            if ($user) {
+                $result = $this->userModel->deleteUserById($id, $user->profile_image, $user->agency_image);
+    
+                if ($result) {
+                    flash('UserDeleted', 'کاربر با موفقیت حذف شد', 'alert alert-success');
+                } else {
+                    flash('UserDeleteError', 'خطایی در حذف کاربر رخ داد', 'alert alert-danger');
+                }
+            } else {
+                flash('UserNotFound', 'کاربر مورد نظر پیدا نشد', 'alert alert-danger');
+            }
+    
+            redirect('users/index');
+        }
+        
 
+}
+
+  
