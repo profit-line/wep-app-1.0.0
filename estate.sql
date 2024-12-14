@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2024 at 08:29 AM
+-- Generation Time: Dec 14, 2024 at 11:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -24,24 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chat_message`
---
-
-CREATE TABLE `chat_message` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `sender_id` bigint(20) NOT NULL,
-  `geter_id` bigint(20) NOT NULL,
-  `messge` text NOT NULL,
-  `sent_date` datetime NOT NULL,
-  `is_read` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `clients`
 --
 
@@ -54,11 +36,18 @@ CREATE TABLE `clients` (
   `house_phone_number` bigint(20) NOT NULL,
   `city` varchar(155) NOT NULL,
   `agency_Id` bigint(20) NOT NULL,
-  `status` tinyint(5) NOT NULL,
+  `status` tinyint(5) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `family_name`, `last_name`, `profile_image`, `phone_number`, `house_phone_number`, `city`, `agency_Id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'test', 'testian', 'dddd.png', 55555555, 55555555, 'Adana', 1, 0, '2024-12-14 13:59:02', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -87,14 +76,44 @@ CREATE TABLE `estate` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `action` varchar(35) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` bigint(20) NOT NULL,
+  `sender_id` bigint(20) NOT NULL,
+  `receiver_id` bigint(20) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `notifictions`
 --
 
 CREATE TABLE `notifictions` (
   `id` bigint(20) NOT NULL,
-  `geter_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   `message` text NOT NULL,
-  `send_date` bigint(20) NOT NULL,
   `is_read` tinyint(5) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
@@ -119,6 +138,13 @@ CREATE TABLE `real_estate_consultant` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `real_estate_consultant`
+--
+
+INSERT INTO `real_estate_consultant` (`id`, `user_id`, `agency_image`, `address`, `location`, `office_phone_number`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 14, 'knjo.png', 'fcccccccccc', 'ccccc', '0222222222', '2024-12-14 13:58:46', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -131,7 +157,8 @@ CREATE TABLE `rentals` (
   `buyer_Id` bigint(20) NOT NULL,
   `rental_date_start` datetime NOT NULL,
   `rental_date_end` datetime NOT NULL,
-  `price` bigint(20) NOT NULL,
+  `before_price` varchar(30) NOT NULL,
+  `rental_price` varchar(30) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -152,58 +179,6 @@ CREATE TABLE `sales` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tasks`
---
-
-CREATE TABLE `tasks` (
-  `id` bigint(20) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `text` text NOT NULL,
-  `checked` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tickets`
---
-
-CREATE TABLE `tickets` (
-  `id` bigint(20) NOT NULL,
-  `agency_id` bigint(20) NOT NULL,
-  `responsive_id` bigint(20) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `text` text NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `priority` tinyint(5) NOT NULL,
-  `ticket_closed` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tickets_reply`
---
-
-CREATE TABLE `tickets_reply` (
-  `id` bigint(20) NOT NULL,
-  `ticket_id` bigint(20) NOT NULL,
-  `agency_id` bigint(20) NOT NULL,
-  `text` text NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` bigint(20) DEFAULT NULL,
-  `deleted_at` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -250,12 +225,6 @@ INSERT INTO `users` (`id`, `user_name`, `family_name`, `last_name`, `profile_ima
 --
 
 --
--- Indexes for table `chat_message`
---
-ALTER TABLE `chat_message`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `clients`
 --
 ALTER TABLE `clients`
@@ -265,6 +234,18 @@ ALTER TABLE `clients`
 -- Indexes for table `estate`
 --
 ALTER TABLE `estate`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -292,24 +273,6 @@ ALTER TABLE `sales`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tasks`
---
-ALTER TABLE `tasks`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tickets`
---
-ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tickets_reply`
---
-ALTER TABLE `tickets_reply`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -320,21 +283,27 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `chat_message`
---
-ALTER TABLE `chat_message`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `estate`
 --
 ALTER TABLE `estate`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -347,7 +316,7 @@ ALTER TABLE `notifictions`
 -- AUTO_INCREMENT for table `real_estate_consultant`
 --
 ALTER TABLE `real_estate_consultant`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `rentals`
@@ -359,24 +328,6 @@ ALTER TABLE `rentals`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tasks`
---
-ALTER TABLE `tasks`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tickets`
---
-ALTER TABLE `tickets`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tickets_reply`
---
-ALTER TABLE `tickets_reply`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
