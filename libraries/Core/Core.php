@@ -48,13 +48,31 @@ class Core
 
                 //unset 0 index
                 unset($url[1]);
+            }elseif(!method_exists($this->currentController, $this->currentMethod)){
+                require_once '../views/' . 'errors/error_404.php';
+                die();
             }
+            
         }
+
         //Get params
         $this->params = $url ? array_values($url) : [];
 
-        //Call a Callback with array off params
+    $reflection = new \ReflectionMethod($this->currentController, $this->currentMethod);
+    $parameters = $reflection->getParameters();
+
+    if (count($parameters) > 0) {
+        if($this->params != null && $this->params != ''){
+            call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+        }else{
+            require_once '../views/' . 'errors/error_500.php';
+                die();
+        }
+    } else {
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
+    }
+       
+        
     }
 
     public function getUrl()

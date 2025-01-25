@@ -23,7 +23,7 @@ function backUrl()
 
 function asset($src)
 {
-    return URLROOT . 'public/' . trim($src, "/ ");
+    return URLROOT . 'public/ev-admin-dashboard-template.multipurposethemes.com/bs5/template/vertical/main/' . trim($src, "/ ");
 }
 
 function url($url, $query = [])
@@ -35,7 +35,7 @@ function url($url, $query = [])
 }
 
 //Load views
-function view($src)
+function view($src , $data = null)
 {
     $newSrc = trim($src, "/ ");
     require_once(APPROOT . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . $newSrc . ".php");

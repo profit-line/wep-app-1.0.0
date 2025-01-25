@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<!-- Mirrored from ev-admin-dashboard-template.multipurposethemes.com/bs5/template/vertical/main/tables_data.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Nov 2024 13:05:06 GMT -->
+<head>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+		<link rel="icon" href="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/favicon.ico">
+		<link rel="icon" href="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/favicon.ico">
+    <title>EV Admin - Dashboard  Data Tables</title>
+  
+	<!-- Vendors Style-->
+	<link rel="stylesheet" href="../src/css/vendors_css.css">
+  	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	  
+	<!-- Style-->  
+	<link rel="stylesheet" href="../src/css/style.css">
+	<link rel="stylesheet" href="../src/css/skin_color.css">
+
+</head>
+
+<body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+	
+<div class="wrapper">
+	<div id="loader"></div>
+
+  <header class="main-header">
+	<div class="d-flex align-items-center logo-box justify-content-start">	
+		<!-- Logo -->
+		<a href="index-2.html" class="logo">
+		  <!-- logo-->
+		  <div class="logo-mini w-40">
+			  <span class="light-logo"><img src="../../../images/logo-letter.png" alt="logo"></span>
+			  <span class="dark-logo"><img src="../../../images/logo-white-letter.png" alt="logo"></span>
+		  </div>
+		  <div class="logo-lg">
+			  <span class="light-logo"><img src="../../../images/logo-light-text.png" alt="logo"></span>
+			  <span class="dark-logo"><img src="../../../images/logo-text.png" alt="logo"></span>
+		  </div>
+		</a>	
+	</div>   
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+	  <div class="app-menu">
+		<ul class="header-megamenu nav">
+			<li class="btn-group nav-item">
+				<a href="#" class="waves-effect waves-light nav-link push-btn btn-primary-light" data-toggle="push-menu" role="button">
+					<i data-feather="menu"></i>
+			    </a>
+			</li>
+			<li class="btn-group d-lg-inline-flex d-none">
+				<div class="app-menu">
+					<div class="search-bx mx-5">
+						<form>
+							<div class="input-group">
+							  <input type="search" class="form-control" placeholder="Search">
+							  <div class="input-group-append">
+								<button class="btn" type="submit" id="button-addon3"><i class="icon-Search"><span class="path1"></span><span class="path2"></span></i></button>
+							  </div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</li>
+		</ul> 
+	  </div>
+		
+      <div class="navbar-custom-menu r-side">
+        <ul class="nav navbar-nav">
+			<li class="dropdown notifications-menu btn-group">
+				<label class="switch">
+				  	<a class="waves-effect waves-light btn-primary-light svg-bt-icon">
+						<input type="checkbox" data-mainsidebarskin="toggle" id="toggle_left_sidebar_skin">
+						<span class="switch-on"><i data-feather="moon"></i></span>
+						<span class="switch-off"><i data-feather="sun"></i></span>
+					</a>	
+				</label>
+        	</li>
+			<li class="dropdown notifications-menu btn-group ">
+				<a href="#" class="waves-effect waves-light btn-primary-light svg-bt-icon" data-bs-toggle="dropdown" title="Notifications">
+					<i data-feather="bell"></i>
+					<div class="pulse-wave"></div>
+			    </a>
+				<ul class="dropdown-menu animated bounceIn">
+				  <li class="header">
+					<div class="p-20">
+						<div class="flexbox">
+							<div>
+								<h4 class="mb-0 mt-0">Notifications</h4>
+							</div>
+							<div>
+								<a href="#" class="text-danger">Clear All</a>
+							</div>
+						</div>
+					</div>
+				  </li>
+				  <li>
+					<!-- inner menu: contains the actual data -->
+					<ul class="menu sm-scrol">
+					  <li>
+						<a href="#">
+						  <i class="fa fa-users text-info"></i> Curabitur id eros quis nunc suscipit blandit.
+						</a>
+					  </li>
+					  <li>
+						<a href="#">
+						  <i class="fa fa-warning text-warning"></i> Duis malesuada justo eu sapien elementum, in semper diam posuere.
+						</a>
+					  </li>
+					  <li>
+						<a href="#">
+						  <i class="fa fa-users text-danger"></i> Donec at nisi sit amet tortor commodo porttitor pretium a erat.
+						</a>
+					  </li>
+					  <li>
+						<a href="#">
+						  <i class="fa fa-shopping-cart text-success"></i> In gravida mauris et nisi
+						</a>
+					  </li>
+					  <li>
+						<a href="#">
+						  <i class="fa fa-user text-danger"></i> Praesent eu lacus in libero dictum fermentum.
+						</a>
+					  </li>
+					  <li>
+						<a href="#">
+						  <i class="fa fa-user text-primary"></i> Nunc fringilla lorem 
+						</a>
+					  </li>
+					  <li>
+						<a href="#">
+						  <i class="fa fa-user text-success"></i> Nullam euismod dolor ut quam interdum, at scelerisque ipsum imperdiet.
+						</a>
+					  </li>
+					</ul>
+				  </li>
+				  <li class="footer">
+					  <a href="#">View all</a>
+				  </li>
+				</ul>
+			</li>
+			 
+			
+			<li class="btn-group d-xl-inline-flex d-none">
+			    <a href="#" class="waves-effect waves-light nav-link btn-primary-light svg-bt-icon dropdown-toggle" data-bs-toggle="dropdown">
+					<img class="rounded" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/usa.svg" alt="">
+				</a>
+			    <div class="dropdown-menu">
+					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/usa.svg" alt=""> English</a>
+					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/spain.svg" alt=""> Spanish</a>
+					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/ger.svg" alt=""> German</a>
+					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/jap.svg" alt=""> Japanese</a>
+					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/fra.svg" alt=""> French</a>
+			    </div>
+			</li>
+			
+			<li class="btn-group nav-item d-xl-inline-flex d-none">
+				<a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link btn-primary-light svg-bt-icon" title="Full Screen">
+					<i data-feather="maximize"></i>
+			    </a>
+			</li>					  
+          <!-- Control Sidebar Toggle Button -->
+          <li class="btn-group nav-item d-xl-inline-flex d-none">
+              <a href="#" data-toggle="control-sidebar" title="Setting" class="waves-effect waves-light nav-link btn-primary-light svg-bt-icon">
+			  	<i data-feather="sliders"></i>
+			  </a>
+          </li>
+			
+			<!-- User Account-->
+			<li class="dropdown user user-menu">
+				<a href="#" class="waves-effect waves-light dropdown-toggle w-auto l-h-12 bg-transparent p-0 no-shadow" title="User" data-bs-toggle="modal" data-bs-target="#quick_user_toggle">
+					<img src="../../../images/avatar/avatar-13.png" class="avatar rounded-circle bg-primary-light h-40 w-40" alt="" />
+				</a>
+			</li>
+			
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+		<!-- sidebar-->
+		<section class="sidebar position-relative"> 
+			<div class="multinav">
+				<div class="multinav-scroll" style="height: 99%;">	
+					<!-- sidebar menu-->
+					<ul class="sidebar-menu" data-widget="tree">
+						<li class="header fs-10 m-0 text-uppercase">Dashboard</li>
+												<li class="treeview">
+							<a href="index.html">
+								<i data-feather="home"></i>
+
+							<span>ANASAYFA</span>
+							</a>
+						</li>
+
+						<li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="headphones"></i> -->
+							<span>GÖREVLER</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">		
+											<!-- این قسمت هم اون هایی که ۱۰ روز مونده به تموم شدن -->
+							<li><a href="tables_kiraci_dey.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>ACİL ARANMASI GEREKEN</a></li>
+							<!-- این قسمت هم فقط کسانی که تایمشون داره تموم میشه به ترتیب بهمون نشون بده از ۱۰ روز تا یک ماه رو بهمون نشون بده -->
+							<li><a href="tum-tables_kiraci.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>TÜM GÖREVLER</a></li>					
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="edit"></i> -->
+							<span>PORTFÖYLER</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>
+							<ul class="treeview-menu">											
+							<li class="treeview">
+								<a href="#">
+									<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SATILIK PORTFÖY
+									<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+									</span>
+								</a>
+								<!-- این قمسمت هم برای فروش هست -->
+								<ul class="treeview-menu">
+									<!-- مسکن -->
+									<li><a href="konut_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KONUT</a></li>
+									<!-- دفتر -->
+									<li><a href="ofis_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>OFİS</a></li>
+									<!-- ویلا -->
+									<li><a href="villa_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>VİLLA</a></li>
+									<!-- زمین -->
+									<li><a href="arazi_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>ARAZİ</a></li>
+								</ul>
+							</li>												
+							<li class="treeview">
+								<a href="#">
+									<!-- این قسمت هم برای اجاره هست -->
+									<i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KİRALIK PORTFÖY
+									<span class="pull-right-container">
+										<i class="fa fa-angle-right pull-right"></i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+										<!-- مسکن -->
+									<li><a href="kiralik_konut_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KONUT</a></li>
+										<!-- دفتر -->
+									<li><a href="kiralik_ofis_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>OFİS</a></li>
+										<!-- ویلا -->
+									<li><a href="kiralik_villa_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>VİLLA</a></li>
+										<!-- زمین -->
+									<li><a href="kiralik_arazi_table.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>ARAZİ</a></li>	
+								</ul>
+							</li>										
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="headphones"></i> -->
+							<span>KİRA TAKİBİ</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">					
+							<!-- این قسمت اون هایی که یک مانده به پایان-->
+							<li><a href="tables_kiraci_dey.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KONTRAT BİTİMİ YAKLAŞAN</a></li> 
+							<!--این قسمت هم همه رو نشون بده-->
+							<li><a href="tum_sahib_kiraci_ler.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>TÜM KİRALANAN MÜLKLER</a></li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="headphones"></i> -->
+							<span>PORTFÖY EKLE</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">					
+							<li><a href="tum-tables_KONUT.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KONUT</a></li>
+							<li><a href="tum-tables_OFIS.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>OFİS</a></li>					
+							<li><a href="tum-tables_VILLA.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>VİLLA</a></li>					
+							<li><a href="tum-tables_ARAZI.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>ARAZİ</a></li>					
+							<li><a href="tum-tables_SANAYI-İŞYERİ.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SANAYİ İŞYERİ</a></li>					
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="headphones"></i> -->
+							<span>MALİKLER</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">					
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MALİK LİSTESİ EKLE</a></li>
+							<li><a href="add_sahib_AKASYA_F.C.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>AKASYA F.C.</a></li>					
+							<li><a href="add_sahib_BEGONYA-SUİT.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>BEGONYA SUİT</a></li>					
+							<li><a href="add_sahib_KRİSTALŞEHİR.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KRİSTALŞEHİR</a></li>					
+							<li><a href="add_sahib_VADİİSTANBUL.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>VADİİSTANBUL</a></li>					
+							<li><a href="add_sahib_BEŞİNCİ-LEVENT.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>BEŞİNCİ LEVENT</a></li>					
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="headphones"></i> -->
+							<span>YATIRIMCILAR</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">					
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>SANAYİ YATIRIMCISI</a></li>
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>ARAZİ YATIRIMCISI</a></li>					
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KONUT YATIRIMCISI</a></li>					
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>MÜTAHİT</a></li>					
+							</ul>
+						</li>
+						  <li class="treeview">
+							<a href="#">
+							<!-- <i data-feather="headphones"></i> -->
+							<span>EŞLEŞTİRMELER</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">					
+							<li><a href="#"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>TÜM EŞLEŞMELER % İLE</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="forms_eklemek.html">
+							<!-- <i data-feather="battery-charging"></i> -->
+
+							<span>Kiraci Eklemek</span>
+							</a>
+						</li>
+						<li>
+							<a href="extra_profile.html">
+							<i data-feather="battery-charging"></i>
+							<span>Benim profile</span>
+							</a>
+						</li>
+						 
+						<li class="header fs-10 m-0 text-uppercase">Components</li>
+						<li class="treeview">
+							<a href="#">
+							<i data-feather="headphones"></i>
+							<span>Support</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>					
+							<ul class="treeview-menu">					
+							<li><a href="extra_app_ticket.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Support Ticket</a></li>
+							<li><a href="contact_app_chat.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Chat</a></li>					
+							<li><a href="calendar.html"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Calendar</a></li>					
+							</ul>
+						</li>
+						 	
+						 			
+						 				 
+						 	 
+						<li class="header  fs-10 m-0">LOGIN & ERROR</li>
+						<li class="treeview">
+							<a href="#">
+							<i data-feather="lock"></i>
+							<span>Authentication</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>
+							<ul class="treeview-menu">
+							<li>
+								<a href="auth_login.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Login</a>
+								<a href="auth_login_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Login</a>
+							</li>
+							<li>
+								<a href="auth_register.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Register</a>
+								<a href="auth_register_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Register</a>
+							</li>
+							<li>
+								<a href="add-or-remove.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Add Or Remove</a>
+							</li>
+							<li>
+								<a href="auth_lockscreen.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Lockscreen</a>
+								<a href="auth_lockscreen_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Lockscreen</a>
+							</li>
+							<li>
+								<a href="auth_user_pass.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Recover password</a>
+								<a href="auth_user_pass_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Recover password</a>
+							</li>	
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+							<i data-feather="alert-triangle"></i>
+							<span>Miscellaneous</span>
+							<span class="pull-right-container">
+								<i class="fa fa-angle-right pull-right"></i>
+							</span>
+							</a>
+							<ul class="treeview-menu">
+							<li>
+								<a href="error_404.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Error 404</a>
+								<a href="error_404_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Error 404</a>
+							</li>
+							<li>
+								<a href="error_500.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Error 500</a>
+								<a href="error_500_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Error 500</a>
+							</li>
+							<li>
+								<a href="error_maintenance.html" target="_blank" class="d-light"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Maintenance</a>
+								<a href="error_maintenance_dark.html" target="_blank" class="d-dark"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Maintenance</a>
+							</li>	
+							</ul>
+						</li>	 	     
+					</ul>
+					
+					 
+				</div>
+			</div>
+		</section>
+	</aside>
+  
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+	  <div class="container-full">
+		<!-- Content Header (Page header) -->
+		<div class="content-header">
+			<div class="d-flex align-items-center">
+				<div class="me-auto">
+					<h4 class="page-title">Data Tables</h4>
+					<div class="d-inline-block align-items-center">
+						<nav>
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+								<li class="breadcrumb-item" aria-current="page">Tables</li>
+								<li class="breadcrumb-item active" aria-current="page">konut_table</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		<!-- Main content -->
+		<section class="content">
+		  <div class="row">
+			  
+			
+			<div class="col-12">
+
+			 <div class="box">
+				<div class="box-header with-border">
+				  <h4 class="box-title">KONUT</h4>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="table-responsive">
+					  <table id="example1" class="table text-fade table-bordered">
+						<thead>
+							<tr class="text-dark">
+								<th>sahibinin adı</th>
+								<th>İletişim numarası</th>
+								<th>şehir</th>
+								<th>adres</th>
+								<th>Kaç kat</th>
+								<th>birim</th>
+								<th>Ölçüm</th>
+								<th>Kaç uyuyor</th>
+								<th>otopark</th>
+								<th>asansör</th>
+								<th>Merkeze yakın</th>
+								<th>okula yakın</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="text-dark">Tiger Nixon</td>
+								<td>System Architect</td>
+								<td>Edinburgh</td>
+								<td>61</td>
+								<td>2011/04/25</td>
+								<td>$320,800</td>
+								<td>$320,800</td>
+								<td>$320,800</td>
+								<td>$320,800</td>
+								<td>$320,800</td>
+								<td>$320,800</td>
+								<td>$320,800</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Garrett Winters</td>
+								<td>Accountant</td>
+								<td>Tokyo</td>
+								<td>63</td>
+								<td>2011/07/25</td>
+								<td>$170,750</td>
+								<td>$170,750</td>
+								<td>$170,750</td>
+								<td>$170,750</td>
+								<td>$170,750</td>
+								<td>$170,750</td>
+								<td>$170,750</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Ashton Cox</td>
+								<td>Junior Technical Author</td>
+								<td>San Francisco</td>
+								<td>66</td>
+								<td>2009/01/12</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Cedric Kelly</td>
+								<td>Senior Javascript Developer</td>
+								<td>Edinburgh</td>
+								<td>22</td>
+								<td>2012/03/29</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Airi Satou</td>
+								<td>Accountant</td>
+								<td>Tokyo</td>
+								<td>33</td>
+								<td>2008/11/28</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$86,000</td>
+								<td>$162,700</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Brielle Williamson</td>
+								<td>Integration Specialist</td>
+								<td>New York</td>
+								<td>61</td>
+								<td>2012/12/02</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Herrod Chandler</td>
+								<td>Sales Assistant</td>
+								<td>San Francisco</td>
+								<td>59</td>
+								<td>2012/08/06</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$137,500</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Rhona Davidson</td>
+								<td>Integration Specialist</td>
+								<td>Tokyo</td>
+								<td>55</td>
+								<td>2010/10/14</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$327,900</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Colleen Hurst</td>
+								<td>Javascript Developer</td>
+								<td>San Francisco</td>
+								<td>39</td>
+								<td>2009/09/15</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$205,500</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Colleen Hurst</td>
+								<td>Javascript Developer</td>
+								<td>San Francisco</td>
+								<td>39</td>
+								<td>2009/09/15</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$205,500</td>
+							</tr>
+							<tr>
+								<td class="text-dark">Colleen Hurst</td>
+								<td>Javascript Developer</td>
+								<td>San Francisco</td>
+								<td>39</td>
+								<td>2009/09/15</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$372,000</td>
+								<td>$205,500</td>
+							</tr>
+						</tbody>
+					  </table>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			  </div>
+			  <!-- /.box -->       
+			</div>
+			<!-- /.col -->
+		  </div>
+		  <!-- /.row -->
+		</section>
+		<!-- /.content -->
+	  
+	  </div>
+  </div>
+  <!-- /.content-wrapper -->
+  
+	
+	<!-- Page Content overlay -->
+	
+	
+	<!-- Vendor JS -->
+	<script src="../src/js/vendors.min.js"></script>
+	<script src="../src/js/pages/chat-popup.js"></script>
+    <script src="../../../assets/icons/feather-icons/feather.min.js"></script>	
+	<script src="../../../assets/vendor_components/datatable/datatables.min.js"></script>
+	
+	<!-- EV Admin App -->
+	<script src="../src/js/demo.js"></script>
+	<script src="../src/js/template.js"></script>
+	
+	<script src="../src/js/pages/data-table.js"></script>
+	
+
+</body>
+
+<!-- Mirrored from ev-admin-dashboard-template.multipurposethemes.com/bs5/template/vertical/main/tables_data.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Nov 2024 13:05:06 GMT -->
+</html>

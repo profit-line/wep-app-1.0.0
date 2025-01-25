@@ -3,22 +3,61 @@
 use Libraries\Controller\Controller;
 use Libraries\Request\Request;
 use Libraries\Validator\Validator;
+use Libraries\Auth\Auth;
 
 class Message extends Controller
 {
     private $messagesModel;
+    private $RealEstateConsultantModel;
+    private $userModel;
+    private $logModel;
     private $req;
     private $validator;
+    private $rentalsModel;
+    private $consultantId;
 
     public function __construct()
     {
         $this->req = new Request();
         $this->validator = new Validator($this->req);
         $this->messagesModel = $this->model('Messages');
+        $this->userModel = $this->model('Users');
+        $this->logModel = $this->model('Log');
+        $this->rentalsModel = $this->model('Rentals');
+        $this->RealEstateConsultantModel = $this->model('RealEstateConsultant');
+        $this->consultantId = $this->rentalsModel->getConsultantId(get('user')['id']);
+       
     }
 
+    public function index(){
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $data['users'] = $this->userModel->getActiveConsultantUsers();
+        $data['users_chat'] = $this->messagesModel->usersChatById(Auth::getIdUser());
+    //    $this->view('tickets/contact_app_chat' , $data);
+       $this->view('tickets/chat' , $data);
+      
+    }
+
+    public function getUsers(){
+        $data['users'] = $this->userModel->getActiveConsultantUsers();
+
+        echo json_encode($data['users']);
+    }
+ 
     public function sendMessage()
     {
+       
         $data['errors'] = [];
         $data['requests'] = [];
 
@@ -44,24 +83,33 @@ class Message extends Controller
                 $result = $this->messagesModel->sendMessage($messageData);
 
                 if ($result) {
-                    flash('MessageSent', 'پیام با موفقیت ارسال شد', 'alert alert-success');
+                    echo json_encode(['status' => 'Message sent']);
                 } else {
-                    flash('MessageSendError', 'خطایی در ارسال پیام رخ داد', 'alert alert-danger');
+                    echo json_encode(['status' => 'Message Not Sent']);
                 }
             }
         }
 
-        if (isset($data)) {
-            $this->view('messages/send', $data);
-        } else {
-            $this->view('messages/send');
-        }
+      
     }
 
-    public function getMessages($sender_id, $receiver_id)
+    public function getMessages()
     {
-        $messages = $this->messagesModel->getMessages($sender_id, $receiver_id);
+
+        $userId = $this->req->userId;
+        $otherUserId = $this->req->otherUserId;
+
+        if (empty($userId) || empty($otherUserId)) {
+            echo json_encode(['error' => 'Missing parameters']);
+            exit;
+        }
+
+        $messages = $this->messagesModel->getMessagesById($userId, $otherUserId);
+
         $data['messages'] = $messages ? $messages : [];
-        $this->view('messages/index', $data);
+
+        echo json_encode($data['messages']);
     }
+
+
 }

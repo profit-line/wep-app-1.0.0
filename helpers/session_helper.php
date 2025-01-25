@@ -1,7 +1,7 @@
 <?php
 
     function get($name){
-        if(isset($name)){
+        if(isset($name) && !isEmpty($name)){
             return has($name) === true ? $_SESSION[$name] : null;
         }
         return null;

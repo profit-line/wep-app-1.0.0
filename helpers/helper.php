@@ -1,5 +1,6 @@
 <?php
 
+define('s' , DIRECTORY_SEPARATOR);
 function dd($arr , $exit = 0)
 {
     if (isset($arr) && !empty($arr)) {
@@ -12,12 +13,19 @@ function dd($arr , $exit = 0)
     }   
 }
 
+function old($data, $key, $default = '') {
+    return isset($data['requests'][$key]) ? $data['requests'][$key] : $default;
+}
+
+function old_checkbox($data, $key, $value = 1) {
+    return (isset($data['requests'][$key]) && $data['requests'][$key] == $value) ? 'checked' : '';
+}
+
 
 function add_class_error($errData , $key)
 {
     
     if (isset($errData['errors'][$key]) && $errData['errors'][$key] === true) {
-
         return 'is-invalid';
     } else {
         return '';
@@ -32,13 +40,19 @@ function add_class($class){
     }
 }
 
-function view_error($errData , $key, $msg)
+function view_error($errData , $key, $msg = null)
 {
-    if (isset($errData['errors'][$key]) && $errData['errors'][$key] === true) {
+    if (isset($errData['errors'][$key]) && $errData['errors'][$key] === true && $msg != null) {
         return $msg;
     } else {
-        return false;
+     
+        $path = APPROOT . s . 'config' . s . 'textError.json';
+        $json = file_get_contents($path);
+        $err = json_decode($json , 1);
+   
+        return $err[$key];
     }
+    return false;
 }
 
 function generateToken(){
@@ -48,27 +62,28 @@ function generateToken(){
 
 function checkList($list , $item){
 
-    if(is_array($list) && !empty($item)){
+    if(is_array($list) && !isEmpty($item)){
 
         $resulte = in_array($item , $list);
         if($resulte){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
         }
 
     }
 
-    return false;
+    return true;
 
 }
 
 
 function isEmpty($value){
-
+    if(isset($value)){
     $newValue = trim($value);
     if($newValue === ''){
         return true;
+    }
     }
     return false;
 
@@ -77,8 +92,10 @@ function isEmpty($value){
 function fileUpload($fileAddress , $destinationAddress){
 
     if(!isEmpty($fileAddress) && !isEmpty($destinationAddress)){
+        
         if(file_exists($fileAddress)){
             if(move_uploaded_file($fileAddress, $destinationAddress)){
+                
                 return true;
             }else{
                 return false;
@@ -101,4 +118,22 @@ function fileDelete($fileAddress){
         }
     }
     return false;
+}
+
+
+function ipCheck(){
+$ip = $_SERVER['REMOTE_ADDR'];
+
+$url = "http://ipinfo.io/{$ip}/json?token=" . INFOIPAPI;
+$response = file_get_contents($url);
+
+$data = json_decode($response, true);
+$country = $data['country'];
+
+if ($country == 'TR' || $country == 'IR') {
+    return true;
+} else {
+return false;    
+}
+
 }

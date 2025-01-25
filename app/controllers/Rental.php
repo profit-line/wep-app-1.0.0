@@ -3,137 +3,290 @@
 use Libraries\Controller\Controller;
 use Libraries\Request\Request;
 use Libraries\Validator\Validator;
+use Libraries\Auth\Auth;
 
 class Rental extends Controller
 {
     private $rentalsModel;
+    private $userModel;
     private $req;
+    private $logModel;
     private $validator;
-
+    private $consultantId;
+    private $notificationModel;
+    private $notif;
+    private $estateModel;
     public function __construct()
     {
         $this->req = new Request();
         $this->validator = new Validator($this->req);
         $this->rentalsModel = $this->model('Rentals');
+        $this->estateModel = $this->model('Estate');
+        $this->logModel = $this->model('Log');
+        $this->notificationModel = $this->model('Notifictions');
+        $this->userModel = $this->model('Users');
+        $this->consultantId = $this->rentalsModel->getConsultantId(Auth::getIdUser());
+        $notif = $this->notificationModel->getNotification($this->consultantId);
+    
     }
+
 
     public function index()
     {
-        $rentals = $this->rentalsModel->getRentalsData();
-        $data['rentals'] = $rentals ? $rentals : [];
-        $this->view('rentals/index', $data);
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $page = !isEmpty($this->req->page) ? (int)$this->req->page : 1;
+        $perPage = 10;
+
+        $data['rentals'] = $this->rentalsModel->getRentalsAllData($this->consultantId, $page, $perPage);
+        $data['notif'] = $this->notif;
+    
+        $this->view('pages/rentals/tables_rentals', $data);
+    }
+    
+
+    public function expiringIn1Month()
+    {
+  
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $page = !isEmpty($this->req->page) ? (int)$this->req->page : 1;
+        $perPage = 10;
+   
+        $data['rentals'] = $this->rentalsModel->getRentalsByDateRange($this->consultantId,0, 30, $page, $perPage);
+  
+        $data['notif'] = $this->notif;
+        $this->view('pages/rentals/tables_rentals', $data);
+    }
+    
+    public function konutShow()
+    {
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $page = !isEmpty($this->req->page) ? (int)$this->req->page : 1;
+       $perPage = 10;
+
+        $data['rentals'] = $this->rentalsModel->getRentalsDataByConsultantId($this->consultantId, 'KONUT', $page, $perPage);
+
+        $data['notif'] = $this->notif;
+      
+        $this->view('pages/rentals/kiralik_konut_table', $data);
     }
 
-    public function addRental()
+    public function ofisShow()
     {
-        $data['errors'] = [];
-        $data['requests'] = [];
 
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $page = !isEmpty($this->req->page) ? (int)$this->req->page : 1;
+        $perPage = 10;
+
+        $data['rentals'] = $this->rentalsModel->getRentalsDataByConsultantId($this->consultantId, 'OFIS', $page, $perPage);
+        $data['notif'] = $this->notif;
+
+        $this->view('pages/rentals/kiralik_ofis_table', $data);
+    }
+
+    public function villaShow()
+    {
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        } 
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $page = !isEmpty($this->req->page) ? (int)$this->req->page : 1;
+        $perPage = 10;
+        $data['notif'] = $this->notif;
+        $data['rentals'] = $this->rentalsModel->getRentalsDataByConsultantId($this->consultantId, 'VILLA', $page, $perPage);
+
+        $this->view('pages/rentals/kiralik_villa_table', $data);
+    }
+    
+    
+    public function sanayiIsyeriShow(){
+        
+              if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        } 
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+        $page = !isEmpty($this->req->page) ? (int)$this->req->page : 1;
+        $perPage = 10;
+        $data['notif'] = $this->notif;
+        $data['rentals'] = $this->rentalsModel->getRentalsDataByConsultantId($this->consultantId, 'SANAYI_ISYERI', $page, $perPage);
+
+        $this->view('pages/rentals/kiralik_sanayiIsyeri_table', $data);
+        
+    }
+
+
+    public function addRental($id) {
+
+        if (!Auth::isAuthenticated()) {
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            } else {
+                redirect('user/login');
+            }
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+
+        $data = [
+            'errors' => [], 
+            'requests' => []
+        ];
+        $data['id'] = $id;
+        $data['notif'] = $this->notif;
         if ($this->req->isPostMethod()) {
+            
             $validate = $this->validator->Validate([
-                'estate_id' => ['required', 'isNumber'],
-                'buyer_id' => ['required', 'isNumber'],
-                'rental_date_start' => ['required', 'date'],
-                'rental_date_end' => ['required', 'date'],
-                'before_price' => ['required', 'isNumber'],
-                'rental_price' => ['required', 'isNumber']
+                'first_name' => ['required' , 'minStr:3' , 'maxStr:45'],
+                'last_name' => ['required'  , 'minStr:3' , 'maxStr:45'],
+                'block' => ['required'],
+                'phone' => ['required' , 'minStr:3' , 'maxStr:45'],
+                'address' => ['required' , 'minStr:5' , 'maxStr:255'],
+                'start_date' => ['required','minStr:3' , 'maxStr:45'],
+                'end_date' => ['required', 'minStr:3' , 'maxStr:45'],
+                'price' => ['required'],
+                'description' => ['required' , 'minStr:5' , 'maxStr:255']
             ]);
 
             if ($validate->hasError()) {
-                $data = [
-                    'errors' => $validate->getErrors(),
-                    'requests' => $this->req->getAttribute()
-                ];
+                $data['errors'] = $validate->getErrors();
+                $data['requests'] = $this->req->getAttribute();
             } else {
+               
                 $rentalData = [
-                    'estate_id' => $this->req->estate_id,
-                    'buyer_id' => $this->req->buyer_id,
-                    'rental_date_start' => $this->req->rental_date_start,
-                    'rental_date_end' => $this->req->rental_date_end,
-                    'before_price' => $this->req->before_price,
-                    'rental_price' => $this->req->rental_price
+                    'family_name' => $this->req->last_name,
+                    'last_name' => $this->req->first_name,
+                    'block' => $this->req->block,
+                    'phone' => $this->req->phone,
+                    'address' => $this->req->address,
+                    'start_date' => $this->req->start_date,
+                    'end_date' => $this->req->end_date,
+                    'price' => $this->req->price,
+                    'description' => $this->req->description,
+                    'consultant_id' => $this->consultantId,
+                    'estate_id' => $id
                 ];
 
-                $result = $this->rentalsModel->rentalInsert($rentalData);
 
+              $result = $this->rentalsModel->rentalInsert($rentalData);
+               
                 if ($result) {
-                    flash('RentalAdded', 'اجاره با موفقیت اضافه شد', 'alert alert-success');
-                    redirect('rentals/index');
+                    flash('RentalAdded', 'Kiralama başarıyla eklendi', 'alert alert-success');
+                    redirect('rental/addRental/' . $id);
                 } else {
-                    flash('RentalAddError', 'خطایی در اضافه کردن اجاره رخ داد', 'alert alert-danger');
+                    flash('RentalAdded', 'Kira eklenirken bir hata oluştu', 'alert alert-danger');
                 }
             }
         }
 
-        if (isset($data)) {
-            $this->view('rentals/add', $data);
-        } else {
-            $this->view('rentals/add');
-        }
+
+        $this->view('pages/rentals/forms_eklemek', $data);
     }
-
-    public function editRental($id)
-    {
-        $data['errors'] = [];
-        $data['requests'] = [];
-
-        if ($this->req->isPostMethod()) {
-            $validate = $this->validator->Validate([
-                'estate_id' => ['required', 'isNumber'],
-                'buyer_id' => ['required', 'isNumber'],
-                'rental_date_start' => ['required', 'date'],
-                'rental_date_end' => ['required', 'date'],
-                'before_price' => ['required', 'isNumber'],
-                'rental_price' => ['required', 'isNumber']
-            ]);
-
-            if ($validate->hasError()) {
-                $data = [
-                    'errors' => $validate->getErrors(),
-                    'requests' => $this->req->getAttribute()
-                ];
+    
+    public function deleteRentalById($id){
+        
+        
+              if (!Auth::isAuthenticated()) {
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
             } else {
-                $rentalData = [
-                    'estate_id' => $this->req->estate_id,
-                    'buyer_id' => $this->req->buyer_id,
-                    'rental_date_start' => $this->req->rental_date_start,
-                    'rental_date_end' => $this->req->rental_date_end,
-                    'before_price' => $this->req->before_price,
-                    'rental_price' => $this->req->rental_price,
-                    'updated_at' => date('Y-m-d H:i:s') 
-                ];
-
-                $result = $this->rentalsModel->editRentalById($id, $rentalData);
-
-                if ($result) {
-                    flash('RentalUpdated', 'اطلاعات اجاره با موفقیت ویرایش شد', 'alert alert-success');
-                    redirect('rentals/index');
-                } else {
-                    flash('RentalUpdateError', 'خطایی در ویرایش اطلاعات اجاره رخ داد', 'alert alert-danger');
-                }
+                redirect('user/login');
             }
         }
-
-        $rental = $this->rentalsModel->findRentalById($id);
-
-        if ($rental) {
-            $data['rental'] = $rental;
-            $this->view('rentals/edit', $data);
-        } else {
-            flash('RentalNotFound', 'اجاره مورد نظر پیدا نشد', 'alert alert-danger');
-            redirect('rentals/index');
+        
+        if($this->rentalsModel->deleteRentalById($id)){
+            flash('deletedEstate' , 'Mülkiyet kaldırıldı');
+            redirect('rental/index');
+        }else{
+            flash('deletedEstate' , 'Mülk silinmedi' , 'alert alert-danger');
+            redirect('rental/index');
         }
+        
     }
-
-    public function deleteRental($id)
-    {
-        if ($this->rentalsModel->deleteRentalById($id)) {
-            flash('RentalDeleted', 'اجاره با موفقیت حذف شد', 'alert alert-success');
-        } else {
-            flash('RentalDeleteError', 'خطایی در حذف اجاره رخ داد', 'alert alert-danger');
+    
+    
+    public function deleteRental($id){
+          if (!Auth::isAuthenticated()) {
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            } else {
+                redirect('user/login');
+            }
         }
-        redirect('rentals/index');
+        if($this->estateModel->deleteEstate($id)){
+            flash('deletedEstate' , 'Mülkiyet kaldırıldı');
+            redirect('pages/index');
+        }else{
+            flash('deletedEstate' , 'Mülk silinmedi' , 'alert alert-danger');
+            redirect('pages/index');
+        }
+        
+        
     }
-
-
 }

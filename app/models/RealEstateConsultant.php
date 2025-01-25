@@ -21,7 +21,7 @@ class RealEstateConsultant {
     }
 
     public function findConsultantByUserName($username) {
-        $sql = 'SELECT * FROM `real_estate_consultant` INNER JOIN `users` ON `real_estate_consultant`.`user_id` = `users`.`id` WHERE `users`.`user_name` = :username';
+        $sql = 'SELECT * , `real_estate_consultant`.`id` AS idC FROM `real_estate_consultant` INNER JOIN `users` ON `real_estate_consultant`.`user_id` = `users`.`id` WHERE `users`.`user_name` = :username';
         $this->db->query($sql);
         $this->db->bind(':username', $username);
         $row = $this->db->fetch();

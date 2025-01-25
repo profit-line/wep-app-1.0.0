@@ -1,0 +1,22 @@
+{
+    "first_name": "Ady girizmek talap edilýär (ady 3 bilen 45 simwoldan ybarat bolmaly)",
+    "last_name" : "Familiýa girizmek talap edilýär (ady 3 bilen 45 simwoldan ybarat bolmaly)",
+    "email": "E-poçtaňyzy dogry giriziň",
+    "floor": "Girişi doğru girin",
+    "floor_count": "Girişi doğru girin",
+    "address" : "Salgynyň uzynlygy 5 bilen 255 simwoldan ybarat bolmaly",
+    "phone" : "Jübi telefonyňyzy dogry giriziň",
+    "mobile_phone_number": "Jübi telefonyňyzy dogry giriziň",
+    "block" : "Bloky dogry salyň",
+    "gross_area" : "Jemi areany dogry giriziň",
+    "net_area" : "Net area-ny dogry giriziň",
+    "description" : "Beýan etmäniň uzynlygy 5 bilen 255 simwoldan ybarat bolmaly",
+    "city": "Gerekli şäheri saýlaň",
+    "date": "Wagty dogry giriziň",
+    "size": "Dosya boyutu 1 MB'tan küçük olmalıdır",
+    "name": "Dosya uzantısı png olmalı ve adı 1 ile 50 karakter arasında olmalıdır",
+    "password" : "Şifre 8 ila 30 karakter arasında olmalıdır",
+    "Budget" : "Girişi doğru girin",
+    "project_name" : "Girişi doğru girin",
+    "price": "Girişi doğru girin"
+}

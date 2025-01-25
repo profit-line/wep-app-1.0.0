@@ -3,128 +3,171 @@
 use Libraries\Controller\Controller;
 use Libraries\Request\Request;
 use Libraries\Validator\Validator;
+use Libraries\Auth\Auth;
 
 class Sale extends Controller
 {
     private $salesModel;
+    private $userModel;
     private $req;
+    private $logModel;
     private $validator;
+    private $consultantId;
+    private $notificationModel;
+    private $notif;
+    private $estateModel;
 
     public function __construct()
     {
         $this->req = new Request();
         $this->validator = new Validator($this->req);
         $this->salesModel = $this->model('Sales');
+        $this->logModel = $this->model('Log');
+        $this->userModel = $this->model('Users');
+        $this->consultantId = $this->salesModel->getConsultantId(get('user')['id']);
+        $this->notificationModel = $this->model('Notifictions');
+        $this->notif = $this->notificationModel->getNotification($this->consultantId);
+        $this->estateModel = $this->model('Estate');
+
     }
     
-    public function index()
-    {
-        $sales = $this->salesModel->getSalesData();
-        $data['sales'] = $sales ? $sales : [];
-        $this->view('sales/index', $data);
+
+    public function konutShow(){
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+     
+
+        $data['sales'] = $this->salesModel->getSalesDataByConsultantId($this->consultantId , 'KONUT');
+        $data['notif'] = $this->notif;
+     
+        $this->view('pages/sales/konut_table', $data);
     }
 
-    public function addSale()
-    {
-        $data['errors'] = [];
-        $data['requests'] = [];
+    public function ofisShow(){
 
-        if ($this->req->isPostMethod()) {
-            $validate = $this->validator->Validate([
-                'estate_id' => ['required', 'isNumber'],
-                'buyer_id' => ['required', 'isNumber'],
-                'sale_date' => ['required', 'date'],
-                'price' => ['required', 'isNumber']
-            ]);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
 
-            if ($validate->hasError()) {
-                $data = [
-                    'errors' => $validate->getErrors(),
-                    'requests' => $this->req->getAttribute()
-                ];
-            } else {
-                $saleData = [
-                    'estate_id' => $this->req->estate_id,
-                    'buyer_id' => $this->req->buyer_id,
-                    'sale_date' => $this->req->sale_date,
-                    'price' => $this->req->price
-                ];
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+   
+        $data['sales'] = $this->salesModel->getSalesDataByConsultantId($this->consultantId , 'OFIS');
+        $data['notif'] = $this->notif;
+     
 
-                $result = $this->salesModel->saleInsert($saleData);
+        $this->view('pages/sales/ofis_table', $data);
+    }
 
-                if ($result) {
-                    flash('SaleAdded', 'فروش با موفقیت اضافه شد', 'alert alert-success');
-                    redirect('sales/index');
-                } else {
-                    flash('SaleAddError', 'خطایی در اضافه کردن فروش رخ داد', 'alert alert-danger');
-                }
+    public function villaShow(){
+   
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+   
+
+        $data['sales'] = $this->salesModel->getSalesDataByConsultantId($this->consultantId , 'VILLA');
+        $data['notif'] = $this->notif;
+     
+
+        $this->view('pages/sales/villa_table', $data);
+    }
+
+
+    public function araziShow(){
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+
+        $data['sales'] = $this->salesModel->getSalesDataByConsultantId($this->consultantId , 'ARAZI');
+        $data['notif'] = $this->notif;
+     
+
+        $this->view('pages/sales/arazi_table', $data);
+    }
+    
+        public function sanayiIsyeriShow(){
+        
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
             }
         }
+        
+        
+        $this->logModel->updateLastActivity(Auth::getIdUser());
 
-        if (isset($data)) {
-            $this->view('sales/add', $data);
-        } else {
-            $this->view('sales/add');
-        }
+        $data['sales'] = $this->salesModel->getSalesDataByConsultantId($this->consultantId , 'SANAYI_ISYERI');
+        $data['notif'] = $this->notif;
+     
+
+        $this->view('pages/sales/sanayiIsyeri_table', $data);
     }
 
-    public function editSale($id)
-    {
-        $data['errors'] = [];
-        $data['requests'] = [];
 
-        if ($this->req->isPostMethod()) {
-            $validate = $this->validator->Validate([
-                'estate_id' => ['required', 'isNumber'],
-                'buyer_id' => ['required', 'isNumber'],
-                'sale_date' => ['required', 'date'],
-                'price' => ['required', 'isNumber']
-            ]);
 
-            if ($validate->hasError()) {
-                $data = [
-                    'errors' => $validate->getErrors(),
-                    'requests' => $this->req->getAttribute()
-                ];
-            } else {
-                $saleData = [
-                    'estate_id' => $this->req->estate_id,
-                    'buyer_id' => $this->req->buyer_id,
-                    'sale_date' => $this->req->sale_date,
-                    'price' => $this->req->price,
-                    'updated_at' => date('Y-m-d H:i:s')  
-                ];
-
-                $result = $this->salesModel->editSaleById($id, $saleData);
-
-                if ($result) {
-                    flash('SaleUpdated', 'اطلاعات فروش با موفقیت ویرایش شد', 'alert alert-success');
-                    redirect('sales/index');
-                } else {
-                    flash('SaleUpdateError', 'خطایی در ویرایش اطلاعات فروش رخ داد', 'alert alert-danger');
-                }
-            }
-        }
-
-        $sale = $this->salesModel->findSaleById($id);
-
-        if ($sale) {
-            $data['sale'] = $sale;
-            $this->view('sales/edit', $data);
-        } else {
-            flash('SaleNotFound', 'فروش مورد نظر پیدا نشد', 'alert alert-danger');
-            redirect('sales/index');
-        }
-    }
-
+   
     public function deleteSale($id)
     {
-        if ($this->salesModel->deleteSaleById($id)) {
-            flash('SaleDeleted', 'فروش با موفقیت حذف شد', 'alert alert-success');
-        } else {
-            flash('SaleDeleteError', 'خطایی در حذف فروش رخ داد', 'alert alert-danger');
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCookie()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCookie()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+                redirect('user/login');
+            }
+
         }
-        redirect('sales/index');
+        $this->logModel->updateLastActivity(Auth::getIdUser());
+           if($this->estateModel->deleteEstate($id)){
+            flash('deletedEstate' , 'Mülkiyet kaldırıldı');
+            redirect('pages/index');
+
+        }else{
+            flash('deletedEstate' , 'Mülk silinmedi' , 'alert alert-danger');
+            redirect('pages/index');
+        }
     }
 
 }

@@ -35,8 +35,7 @@ class Client extends Controller
                 'last_name' => ['required', 'minStr:3', 'maxStr:35'],
                 'phone_number' => ['required', 'isNumber', 'minNumberLenth:9', 'maxNumberLenth:13'],
                 'house_phone_number' => ['isNumber'],
-                'city' => ['required', 'minStr:3', 'maxStr:45'],
-                'agency_Id' => ['required', 'isNumber']
+                'city' => ['required', 'minStr:3', 'maxStr:45']
             ]);
 
             if ($validate->hasError()) {

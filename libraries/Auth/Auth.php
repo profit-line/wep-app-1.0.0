@@ -22,12 +22,11 @@ class Auth {
         $status = false;
         if(Session::set('user' , $user)){
             $status = true;
-
             if(!isEmpty($user['cookie_token']) && !is_null($user['cookie_token']) && $user['cookie_token'] != 0){
    
                 $res = self::setJwt($user);
                 if(!is_null($res)){
-                    self::setUserCooke($res);
+                    self::setUserCookie($res);
                 if($status === true){
 
                     return true;
@@ -43,7 +42,7 @@ class Auth {
         return false;
     }
 
-    private static function setUserCooke($data){
+    private static function setUserCookie($data){
         // $userDataString = implode(':' , 
         //                                 [
         //                                     'user_id' => $data['id'] ,
@@ -60,12 +59,13 @@ class Auth {
         }
     }
 
-    public static function getDataCooke(){
+    public static function getDataCookie(){
         return self::getDataJwt();
     }
 
     public static function getDataJwt(){
         
+       if(isset($_COOKIE['Account']) > 0){
         $token = JWT::decode($_COOKIE['Account'] , new Key(SECRET_KEY, 'HS256'));
 
 
@@ -81,11 +81,12 @@ class Auth {
             return explode(':' , $token->data);
 
         }
+       }
 
 
     }
 
-    public static function removeUserCooke(){
+    public static function removeUserCookie(){
         
         if(!empty($_COOKIE['Account']) && isset($_COOKIE['Account'])){
         if(setcookie('Account' , "" ,time() - 1 ,"/" , "" , false , true)){
@@ -98,7 +99,7 @@ class Auth {
     }
 
     public static function logoutUser(){
-        return (Session::forget('user') && self::removeUserCooke()) === true ? true : false; 
+        return (Session::forget('user') && self::removeUserCookie()) === true ? true : false; 
     }
 
     public static function getLoggedInUser(){
@@ -114,7 +115,8 @@ class Auth {
         return Session::has('user') ? true : false;
     }
 
-    public static function isAuthenticatedCooke(){
+    public static function isAuthenticatedCookie(){
+ 
         if(!empty($_COOKIE['Account']) && isset($_COOKIE['Account'])){
             return true; 
         } else{
@@ -124,10 +126,8 @@ class Auth {
 
     public static function isAuthenticatedAdmin(){
         if(!self::isAuthenticated()){
-    
             redirect(""); 
-    
-        }elseif((self::getLoggedInUser()['user_type']) !== "admin" && (self::getLoggedInUser()['user_type']) !== "writer"){
+        }elseif((self::getLoggedInUser()['role']) !== "admin" && (self::getLoggedInUser()['role']) !== "ticket_admin"){
                 redirect("");
         }
     }

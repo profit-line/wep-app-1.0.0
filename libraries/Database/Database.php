@@ -29,6 +29,8 @@ class Database
         try {
             $this->dbh = new \PDO($dns, $this->user, $this->pass);
             $this->dbh->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+            $this->dbh->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);
+            $this->dbh->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
             $this->error = $e->getMessage();
             die("Error Conection Database: " . $this->error);
@@ -44,12 +46,20 @@ class Database
     public function bind($param , $value){
         $this->stmt->bindParam($param , $value);
     }
+    public function bindType($param , $value , $type = null){
+        $this->stmt->bindParam($param , $value ,$type);
+    }
 
     // Execute the prepared statment
     public function execute(){
         return $this->stmt->execute();
     }
-
+    public function debug(){
+        return $this->stmt->debugDumpParams();
+    }
+    public function lastInsertId() {
+        return $this->dbh->lastInsertId();
+    }
     // get resulte set as array of object
     public function fetchAll(){
         $this->execute();
@@ -92,12 +102,18 @@ class Database
     public function getAllData($tableName , $fields = ['*'] , $filters = [], $page = 1, $perPage = 10) {
 
         $newFields = [];
+        $stringFields = '';
+        if($fields[0] !== '*'){
         foreach($fields as $field){
             array_push($newFields , "`$tableName`.`$field`");
         }
         $stringFields = implode(',' , $newFields);
+        }else{
+            $stringFields = '*';
+        }
+
         $sql = "SELECT $stringFields FROM `$tableName`";
-    
+
     
         $whereClause = [];
         $bindParams = [];
@@ -112,11 +128,10 @@ class Database
 
         $offset = ($page - 1) * $perPage;
         $sql .= " LIMIT $perPage OFFSET $offset";
-        
         $this->query($sql);
         $this->bindArray($bindParams);
+
         $rows = $this->fetchAll();
-    
         if ($this->rowCount() > 0) {
             return $rows;
         } else {
@@ -139,6 +154,8 @@ class Database
 
         $this->query($sql);
         $this->bindArray($params);
+        
+        
         if($this->execute()){
             return true;
         }else{

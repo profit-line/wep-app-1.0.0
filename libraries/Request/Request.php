@@ -26,8 +26,14 @@ class Request
         // chack request method and fetch attributes request
         if ($this->method == 'post') {
             foreach ($_POST as $key => $value) {
-
+                if(is_array($value) && count($value) > 0){
+                    foreach ($value as $key => $value) {
+                        $this->attribute[$this->data_sanitize($key)] = $this->data_sanitize($value);
+                    }
+                    continue;
+                }
                 $this->attribute[$this->data_sanitize($key)] = $this->data_sanitize($value);
+
             }
 
             foreach ($_FILES as $key => $value) {

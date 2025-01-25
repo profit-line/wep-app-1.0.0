@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -9,15 +10,15 @@ $mail = new PHPMailer(true);
 try {
                         
     $mail->isSMTP();   
-    $mail->Host       = 'localhost';
-    $mail->Port       = 1025; 
-    $mail->SMTPAuth   = false;
+    $mail->Host = MAIL_HOST;
+    $mail->Port = MAIL_PORT; 
+    $mail->SMTPAuth = false;
     $mail->SMTPSecure = false;
+    $mail->Password   = 'Psscode_Pr0fitline'; 
    
-    $mail->setFrom('from@sender.com', 'Mailer');      
+    $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);      
     $mail->addAddress($dataMail['email'], $dataMail['name']);
-    $mail->addReplyTo('from@sender.com', 'Mailer');
-
+    $mail->addReplyTo(MAIL_REPLY_TO, MAIL_REPLY_TO_NAME);
 
     //Content
     $mail->isHTML(true);                                 
@@ -25,7 +26,7 @@ try {
     $mail->Body    = $dataMail['body'];
     $mail->AltBody = $dataMail['altBody'];
 
-    $mail->send();
+    dd($mail->send() , 1);
     return true;
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
