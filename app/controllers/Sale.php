@@ -160,13 +160,14 @@ class Sale extends Controller
 
         }
         $this->logModel->updateLastActivity(Auth::getIdUser());
+                $urlRefererArray = explode('/' , $_SERVER['HTTP_REFERER']);
+        $urlReferer = $urlRefererArray[3] . '/' . $urlRefererArray[4];
            if($this->estateModel->deleteEstate($id)){
             flash('deletedEstate' , 'Mülkiyet kaldırıldı');
-            redirect('pages/index');
-
+            redirect($urlReferer);
         }else{
             flash('deletedEstate' , 'Mülk silinmedi' , 'alert alert-danger');
-            redirect('pages/index');
+            redirect($urlReferer);
         }
     }
 

@@ -208,7 +208,8 @@ WHERE
                     `estate`.`block`,
                     `rentals`.`rental_price`,
                     `clients`.`email`,
-                    `rentals`.description
+                    `rentals`.description,
+                    `estate`.`description` AS description_estate
                 FROM 
                     `rentals`
                 JOIN 
@@ -247,7 +248,8 @@ WHERE
     r.rental_price,
     e.block, 
     c.email, 
-    r.description
+    r.description,
+    e.description AS description_estate
 FROM 
     rentals r
 JOIN 
