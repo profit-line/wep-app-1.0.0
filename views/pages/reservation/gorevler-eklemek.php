@@ -57,34 +57,34 @@ flash('resevationAdded');
 													<span class="invalid-feedback"><?= view_error($data, 'first_name') ?></span>
 												
 									</div>
-																		<div class="form-group">
+									<div class="form-group">
 										<label for="project_name">Proje</label>
 										<input type="text" class="form-control <?= add_class_error($data, 'project_name'); ?>" id="project_name" name="project_name">
-													<span class="invalid-feedback"><?= view_error($data, 'project_name') ?></span>
-</div>
+										<span class="invalid-feedback"><?= view_error($data, 'project_name') ?></span>
+                                    </div>
 								  </div> 
 								  <div class="col-md-6">
 									<div class="form-group">
 									  <label class="form-label">soyadı</label>
 									  <input type="text" name="last_name" class="form-control <?= add_class_error($data, 'last_name'); ?>" id="lastName1" value="<?= old($data, 'last_name') ?>">
-													<span class="invalid-feedback"><?= view_error($data, 'last_name') ?></span>
-												</div>
+									  <span class="invalid-feedback"><?= view_error($data, 'last_name') ?></span>
+									</div>
 								  </div>
 								</div>
 								<div class="row">
 								<div class="col-md-6">
-												<div class="form-group">
-													<label class="form-label">İletişim numarası</label>
-													<input type="text" class="form-control <?= add_class_error($data, 'phone'); ?>" name="phone" id="addressline1" value="<?= old($data, 'email') ?>">
-													<span class="invalid-feedback"><?= view_error($data, 'phone') ?></span>
+									<div class="form-group">
+										<label class="form-label">İletişim numarası</label>
+										<input type="text" class="form-control <?= add_class_error($data, 'phone'); ?>" name="phone" id="addressline1" value="<?= old($data, 'email') ?>">
+										<span class="invalid-feedback"><?= view_error($data, 'phone') ?></span>
 
-												</div>
-																					<div class="form-group">
-												<label for="unit" class="form-label">No :</label>
-												<input type="text" class="form-control <?= add_class_error($data, 'unit'); ?>" name="unit" id="unit" value="<?= old($data, 'unit') ?>">
-												<span class="invalid-feedback"><?= view_error($data, 'unit') ?></span>
-											</div>
-											</div>
+									</div>
+								<div class="form-group">
+									<label for="unit" class="form-label">No :</label>
+									<input type="text" class="form-control <?= add_class_error($data, 'unit'); ?>" name="unit" id="unit" value="<?= old($data, 'unit') ?>">
+									<span class="invalid-feedback"><?= view_error($data, 'unit') ?></span>
+								</div>
+								</div>
 								</div>
 								<!-- <h4 class="box-title text-primary mb-0 mt-20"><i class="ti-save me-15"></i> Requirements</h4> -->
 								<!-- <hr class="my-15"> -->

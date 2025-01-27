@@ -133,12 +133,7 @@
 
 						<ul class="treeview-menu">
 							<li><a href="<?= url_view_builder('estate/index') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>görüntüle Malik</a></li>
-							<li><a href="<?= url_view_builder('estate/addAKASYA') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>AKASYA F.C.</a></li>
-							<li><a href="<?= url_view_builder('estate/addBegonyaSuite') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>BEGONYA SUİT</a></li>
-							<li><a href="<?= url_view_builder('estate/addKrystalsehir') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>KRİSTALŞEHİR</a></li>
-							<li><a href="<?= url_view_builder('estate/addVadiistanbul') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>VADİİSTANBUL</a></li>
-							<li><a href="<?= url_view_builder('estate/addBesinciLevent') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>BEŞİNCİ LEVENT</a></li>
-							<li><a href="<?= url_view_builder('estate/ekle') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>EKLE</a></li>
+						    <li><a href="<?= url_view_builder('estate/ekle') ?>"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>EKLE</a></li>
 
 						</ul>
 					</li>

@@ -31,6 +31,11 @@ view('pages/inc/header');
 							<div class="box">
 								<div class="box-header with-border">
 									<h4 class="box-title">KONUT</h4>
+										<?php
+									
+									flash('deletedEstate');
+									
+									?>
 								</div>
 								<!-- /.box-header -->
 								<div class="box-body">
@@ -63,6 +68,7 @@ view('pages/inc/header');
                                                     <th>Ulaşılamıyor</th>
                                                     <th>Aranmak istemiyor</th>
 													<th>Proje</th>
+													<th>Tanım</th>
 													<th>Kayıt</th>
 													<th>Sil</th>
 												</tr>
@@ -78,11 +84,11 @@ view('pages/inc/header');
                                                     <td title="<?= $value->floor ?>"><?= $value->floor ?></td>
                                                     <td title="<?= $value->block ?>"><?= $value->block ?></td>
                                                     <td title="<?= $value->sleeps ?>"><?= $value->sleeps ?></td>
-                                                    <td title="<?= $value->parking == 1 ? 'Var' : 'Yok' ?>"><?= $value->parking == 1 ? 'Var' : 'Yok' ?></td>
-                                                    <td title="<?= $value->elevator  == 1 ? 'Var' : 'Yok' ?>"><?= $value->elevator  == 1 ? 'Var' : 'Yok' ?></td>
-                                                    <td title="<?= $value->balcony  == 1 ? 'Var' : 'Yok' ?>"><?= $value->balcony  == 1 ? 'Var' : 'Yok' ?></td>
-                                                    <td title="<?= $value->furnished  == 1 ? 'Var' : 'Yok' ?>"><?= $value->furnished  == 1 ? 'Var' : 'Yok' ?></td>
-                                                    <td title="<?= $value->within_site  == 1 ? 'Var' : 'Yok' ?>"><?= $value->within_site  == 1 ? 'Var' : 'Yok' ?></td>
+                                                    <td><?= $value->parking == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                                    <td><?= $value->elevator  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                                    <td><?= $value->balcony  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                                    <td><?= $value->furnished  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                                    <td><?= $value->within_site  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
                                                     <td title="<?= $value->building_age ?>"><?= $value->building_age ?></td>
                                                     <td title="" class="text-dark"><?= $value->net_area ?></td>
                                                     <td title="" class="text-dark"><?= $value->gross_area ?></td>
@@ -94,7 +100,8 @@ view('pages/inc/header');
                                                     <td title="" class="text-dark"><?= $value->does_not_sell == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
                                                     <td title="" class="text-dark"><?= $value->not_available == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
                                                     <td title="" class="text-dark"><?= $value->do_not_disturb == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
-                                                     <td title="" class="text-dark"><?= isEmpty($value->project_name) ? '-' : $value->project_name ?></td>
+                                                    <td title="" class="text-dark"><?= isEmpty($value->project_name) ? '-' : $value->project_name ?></td>
+                                                    <td title="<?= $value->description ?>" class="text-dark"><?= strlen($value->description) > 30 ? substr($value->description, 0, 30) . '...' : $value->description ?></td>
                                                     <th><a href="<?= url_view_builder('rental/addRental/' . $value->id); ?>" class="btn btn-primary">Kayıt</a></th>
                                                     <th><a href="<?= url_view_builder('rental/deleteRental/' . $value->id); ?>" class="btn btn-danger">Sil</a></th>
                                                 </tr>

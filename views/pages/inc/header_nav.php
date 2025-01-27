@@ -92,20 +92,7 @@ endforeach; }
 				  </li>
 				</ul>
 			</li>
-			 
-			
-			<li class="btn-group d-xl-inline-flex d-none">
-			    <a href="#" class="waves-effect waves-light nav-link btn-primary-light svg-bt-icon dropdown-toggle" data-bs-toggle="dropdown">
-					<img class="rounded" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/usa.svg" alt="">
-				</a>
-			    <div class="dropdown-menu">
-					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/usa.svg" alt=""> English</a>
-					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/spain.svg" alt=""> Spanish</a>
-					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/ger.svg" alt=""> German</a>
-					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/jap.svg" alt=""> Japanese</a>
-					<a class="dropdown-item my-5" href="#"><img class="w-20 rounded me-10" src="https://ev-admin-dashboard-template.multipurposethemes.com/bs5/images/svg-icon/fra.svg" alt=""> French</a>
-			    </div>
-			</li>
+
 			
 			<li class="btn-group nav-item d-xl-inline-flex d-none">
 				<a href="#" data-provide="fullscreen" class="waves-effect waves-light nav-link btn-primary-light svg-bt-icon" title="Full Screen">

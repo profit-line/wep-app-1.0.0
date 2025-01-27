@@ -31,6 +31,9 @@ view('pages/inc/sidebar');
 			 <div class="box">
 				<div class="box-header with-border">
 				  <h4 class="box-title">ARAZI</h4>
+				  	  <?php
+				  flash('deletedEstate');
+				  ?>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -46,6 +49,7 @@ view('pages/inc/sidebar');
     						<th>Net</th>
     						<th>Brüt</th>
     						<th>Fiyat</th>
+    						<th>Tanım</th>
     						<th>Sil</th>
     					</tr>
     				</thead>
@@ -59,7 +63,8 @@ view('pages/inc/sidebar');
                                 <td title="<?= $value->block ?>"><?= $value->block ?></td>
                                 <td title="<?= $value->net_area ?>" class="text-dark"><?= $value->net_area ?></td>
                                 <td title="<?= $value->gross_area ?>" class="text-dark"><?= $value->gross_area ?></td>
-                                <td title="<?= $value->price ?>" class="text-dark"><?= $value->price ?></td>    						
+                                <td title="<?= $value->price ?>" class="text-dark"><?= $value->price ?></td>    
+                                <td title="<?= $value->description ?>" class="text-dark"><?= $value->description ?></td>
                                 <td><a href="<?= url_view_builder('sale/deleteSale/' . $value->id); ?>" class="btn btn-danger">Sil</a></td>
     		
     						</tr> <?php endforeach; ?>

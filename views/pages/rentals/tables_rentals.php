@@ -44,7 +44,8 @@ view('pages/inc/sidebar');
 									  <th>Sözleşme bitiş tarihi</th>
 									  <th>block</th>
 									  <th>Fiyat</th>
-									  <th>Tanım</th>
+									  <th>Kiralama açıklaması</th>
+									  <th>Mülkün açıklaması</th>
 									  <th>Hakkında</th>
 									  <th>Sil</th>
 									</tr>
@@ -61,7 +62,8 @@ view('pages/inc/sidebar');
                                         <td title="<?= $value->rental_date_end ?>" class="end-date"><?= $value->rental_date_end ?></td>
                                         <td title="<?= $value->block ?>"><?= $value->block ?></td>
                                         <td title="<?= $value->rental_price ?>"><?= $value->rental_price ?></td>
-                                        <td title="<?= $value->description ?>"><?= $value->description ?></td>
+                                        <td title="<?= $value->description ?>"><?= strlen($value->description) > 30 ? substr($value->description, 0, 30) . '...' : $value->description ?></td>
+                                        <td title="<?= $value->description_estate ?>"><?= strlen($value->description_estate) > 30 ? substr($value->description_estate, 0, 30) . '...' : $value->description_estate ?></td>
                                         <td class="time-left">00:00:00</td>
                                         <th><a href="<?= url_view_builder('rental/deleteRentalById/' . $value->id); ?>" class="btn btn-danger">Sil</a></th>
 									</tr>
@@ -91,7 +93,7 @@ view('pages/inc/sidebar');
 													const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
 													
 													// نمایش زمان باقی‌مانده به صورت روز، ساعت، دقیقه، ثانیه
-													timeLeftCell.innerText = `${daysLeft} gün ,${hoursLeft} saat ,${minutesLeft} dakika ,${secondsLeft} saniye`;
+													timeLeftCell.innerText = `${daysLeft} :${hoursLeft} :${minutesLeft} :${secondsLeft} `;
 
 													// اضافه کردن کلاس text-danger به کل ردیف وقتی یک ماه به پایان قرارداد باقی مانده
 													if (daysLeft <= 30) {

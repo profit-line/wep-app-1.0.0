@@ -95,8 +95,7 @@ view('pages/inc/sidebar');
 													const secondsLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
 													
 													// نمایش زمان باقی‌مانده به صورت روز، ساعت، دقیقه، ثانیه
-													timeLeftCell.innerText = `${daysLeft} gün ,${hoursLeft} saat ,${minutesLeft} dakika ,${secondsLeft} saniye`;
-												// 	timeLeftCell.innerText = `${daysLeft} : ${hoursLeft} : ${minutesLeft} : ${secondsLeft} `;
+													timeLeftCell.innerText = `${daysLeft} : ${hoursLeft} : ${minutesLeft} : ${secondsLeft} `;
 
 													// اضافه کردن کلاس text-danger به کل ردیف وقتی یک ماه به پایان قرارداد باقی مانده
 													if (daysLeft <= 30) {

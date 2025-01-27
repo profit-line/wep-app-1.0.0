@@ -1,8 +1,7 @@
 
 	<!-- Page Content overlay -->
 
-
-	
+    
 	<script type="text/javascript" src="<?= asset('../../../../../cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js') ?>"></script>
 	<!-- Vendor JS -->
 	<script src="<?= asset('../src/js/vendors.min.js') ?>"></script>

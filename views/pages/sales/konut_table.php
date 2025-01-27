@@ -32,6 +32,9 @@ view('pages/inc/sidebar');
 			 <div class="box">
 				<div class="box-header with-border">
 				  <h4 class="box-title">KONUT</h4>
+				  	  <?php
+				  flash('deletedEstate');
+				  ?>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -64,6 +67,7 @@ view('pages/inc/sidebar');
                                 <th>Satmak istemiyor</th>
                                 <th>Ulaşılamıyor</th>
                                 <th>Aranmak istemiyor</th>
+                                <th>Tanım</th>
     							<th>Sil</th>
     						</tr>
     					</thead>
@@ -79,11 +83,11 @@ view('pages/inc/sidebar');
                                     <td title="<?= $value->unit ?>"><?= $value->unit ?></td>
                                     <td title="<?= $value->block ?>"><?= $value->block ?></td>
                                     <td title="<?= $value->sleeps ?>"><?= $value->sleeps ?></td>
-                                    <td title="<?= $value->parking == 1 ? 'Var' : 'Yok' ?>"><?= $value->parking == 1 ? 'Var' : 'Yok' ?></td>
-                                    <td title="<?= $value->elevator  == 1 ? 'Var' : 'Yok' ?>"><?= $value->elevator  == 1 ? 'Var' : 'Yok' ?></td>
-                                    <td title="<?= $value->balcony  == 1 ? 'Var' : 'Yok' ?>"><?= $value->balcony  == 1 ? 'Var' : 'Yok' ?></td>
-                                    <td title="<?= $value->furnished  == 1 ? 'Var' : 'Yok' ?>"><?= $value->furnished  == 1 ? 'Var' : 'Yok' ?></td>
-                                    <td title="<?= $value->within_site  == 1 ? 'Var' : 'Yok' ?>"><?= $value->within_site  == 1 ? 'Var' : 'Yok' ?></td>
+                                    <td><?= $value->parking == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                    <td><?= $value->elevator  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                    <td><?= $value->balcony  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                    <td><?= $value->furnished  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                    <td><?= $value->within_site  == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
                                     <td title="<?= $value->building_age ?>"><?= $value->building_age ?></td>
                                     <td title="<?= $value->net_area ?>" class="text-dark"><?= $value->net_area ?></td>
                                     <td title="<?= $value->gross_area ?>" class="text-dark"><?= $value->gross_area ?></td>
@@ -95,6 +99,7 @@ view('pages/inc/sidebar');
                                     <td class="text-dark"><?= $value->does_not_sell == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
                                     <td class="text-dark"><?= $value->not_available == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
                                     <td class="text-dark"><?= $value->do_not_disturb == 1 ? '<i class="fa fa-check" aria-hidden="true"></i>' : '<i class="fa fa-times" aria-hidden="true"></i>' ?></td>
+                                    <td title="<?= $value->description ?>" class="text-dark"><?= $value->description ?></td>
                                      <td><a href="<?= url_view_builder('sale/deleteSale/' . $value->id); ?>" class="btn btn-danger">Sil</a></td>
 				
 								</tr> <?php endforeach; ?>
